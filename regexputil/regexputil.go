@@ -62,3 +62,31 @@ func extractTo(val interface{}, src []byte) error {
 	}
 	return nil
 }
+
+// ReplaceFirst returns a copy of src, replacing the first match of the Regexp with the replacement
+// text repl. Inside repl, $ signs are interpreted as in regexp.Expand, so for instance $1
+// represents the text of the first submatch.
+//
+// This function complements regexp.ReplaceAll.
+func ReplaceFirst(re *regexp.Regexp, src, repl []byte) []byte {
+	if m := re.FindSubmatchIndex(src); m != nil {
+		out := make([]byte, m[0])
+		copy(out, src[0:m[0]])
+		out = re.Expand(out, repl, src, m)
+		if m[1] < len(src) {
+			out = append(out, src[m[1]:]...)
+		}
+		return out
+	}
+	out := make([]byte, len(src))
+	copy(out, src)
+	return out
+}
+
+// ReplaceFirstString is like ReplaceFirst, except that src and repl are strings, as is the
+// return value.
+//
+// This function complements regexp.ReplaceAllString.
+func ReplaceFirstString(re *regexp.Regexp, src, repl string) string {
+	return string(ReplaceFirst(re, []byte(src), []byte(repl)))
+}
