@@ -26,7 +26,7 @@ func ExpectEqual(t *testing.T, actual, expected interface{}, desc ...interface{}
 
 	_, file, line, _ := runtime.Caller(1)
 	desc1 := fmt.Sprintf("%s:%d%s", file, line, formatDesc(desc))
-	t.Errorf("%s\nActual: %#v\nExpected:   %#v\n", desc1, actual, expected)
+	t.Errorf("%s\nActual:   %#v\nExpected: %#v\n", desc1, actual, expected)
 }
 
 // ExpectDie runs f and tests whether it caused a panic. If not, it calls t.Errorf.
