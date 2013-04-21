@@ -4,6 +4,15 @@ import (
 	"testing"
 )
 
+func TestFormatDesc(t *testing.T) {
+	i := 42
+	b := []byte{0, 1, 2}
+	s := "%s %v %v"
+	ExpectEqual(t, formatDesc(i), " 42", "int")
+	ExpectEqual(t, formatDesc(b), " [0 1 2]", "[]byte")
+	ExpectEqual(t, formatDesc(s, s, i, b), " %s %v %v 42 [0 1 2]", "fmtstring")
+}
+
 func TestExpectEqual(t *testing.T) {
 	p1 := true
 	p2 := true

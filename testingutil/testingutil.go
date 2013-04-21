@@ -25,18 +25,18 @@ func ExpectEqual(t *testing.T, actual, expected interface{}, desc ...interface{}
 	}
 
 	_, file, line, _ := runtime.Caller(1)
-	desc1 := fmt.Sprintf("%s:%d%s", file, line, formatDesc(desc))
+	desc1 := fmt.Sprintf("%s:%d%s", file, line, formatDesc(desc...))
 	t.Errorf("%s\nActual:   %#v\nExpected: %#v\n", desc1, actual, expected)
 }
 
 // ExpectDie runs f and tests whether it caused a panic. If not, it calls t.Errorf.
 //
 // The same formatting convention is used as in ExpectEqual.
-func ExpectDie(t *testing.T, f func(), desc ...string) {
+func ExpectDie(t *testing.T, f func(), desc ...interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	defer func() {
 		if x := recover(); x == nil {
-			t.Errorf("%s:%d%s\nExpected panic", file, line, formatDesc(desc))
+			t.Errorf("%s:%d%s\nExpected panic", file, line, formatDesc(desc...))
 		}
 	}()
 	f()
@@ -52,7 +52,7 @@ func formatDesc(desc ...interface{}) string {
 		return fmt.Sprintf(" %v", desc[0])
 	default:
 		if f, ok := desc[0].(string); ok {
-			return fmt.Sprintf(" "+f, desc[1:])
+			return fmt.Sprintf(" "+f, desc[1:]...)
 		} else {
 			return " " + fmt.Sprint(desc...)
 		}
