@@ -1,4 +1,6 @@
 /*
+Deprecated: use t.Error and package cmp instead. This package will be deleted.
+
 Package testingutil provides utilities not found in the core testing library.
 
 Unfortunately, because these are functions and not methods of testing, the error

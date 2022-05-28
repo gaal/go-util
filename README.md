@@ -7,7 +7,6 @@ Documentation
 -------------
 
 `godoc` [github.com/gaal/go-util/regexputil](http://godoc.org/github.com/gaal/go-util/regexputil)  
-`godoc` [github.com/gaal/go-util/testingutil](http://godoc.org/github.com/gaal/go-util/testingutil)  
 
 Contact
 -------
